@@ -12,9 +12,31 @@ android {
         versionName "1.4"
     }
 
+    signingConfigs {
+        release {
+            // Pulls values from the GitHub Actions environment variables
+            storeFile file(System.getenv("KEYSTORE_PATH") ?: "release-key.jks")
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASSWORD")
+            
+            // Required for Android 5.1 (API 22) compatibility
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+
     applicationVariants.all { variant ->
         variant.outputs.all {
-			outputFileName = "z-watchdog_${variant.versionName.replace(".", "_")}.apk"
+            // Renames output to z-watchdog_1_4.apk, etc
+            outputFileName = "z-watchdog_${variant.versionName.replace(".", "_")}.apk"
         }
     }
 }
