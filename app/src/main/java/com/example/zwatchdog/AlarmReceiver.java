@@ -11,10 +11,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.widget.Toast;
+import com.example.zwatchdog.BuildConfig;
 
 public class AlarmReceiver extends BroadcastReceiver {
     private static final String TARGET_PKG = "com.loudtalks";
-    public static final String VERSION = "1.4";
+    public static final String VERSION = BuildConfig.VERSION_NAME;
     
     @Override
     public void onReceive(Context context, Intent intent) {

@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+// SINGLE SOURCE OF TRUTH
+def appVersionName = "1.4"
+def appVersionCode = 4
+
 android {
     namespace 'com.example.zwatchdog'
     compileSdk 34
@@ -8,11 +12,10 @@ android {
         applicationId "com.example.zwatchdog"
         minSdk 22
         targetSdk 22
-        versionCode 4
-        versionName "1.4"
+        versionCode appVersionCode
+        versionName appVersionName
     }
 
-    // NEW: Disable lint checks that block the release build
     lint {
         checkReleaseBuilds false
         abortOnError false
@@ -38,7 +41,7 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "z-watchdog_${variant.versionName.replace(".", "_")}.apk"
+            outputFileName = "z-watchdog_${appVersionName.replace(".", "_")}.apk"
         }
     }
 }

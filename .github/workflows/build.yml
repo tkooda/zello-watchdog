@@ -2,19 +2,18 @@ name: Build Z-Watchdog Release APK
 on: [push]
 
 env:
-  # Satisfies the environment requirement for Node 24 runners
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
-    runs-runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout Code
-        # Upgraded to v6 for Node 24 support
         uses: actions/checkout@v6
 
       - name: Set up JDK 17
-        # Upgraded to v5 for Node 24 support
         uses: actions/setup-java@v5
         with:
           java-version: '17'
@@ -38,9 +37,16 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
-      - name: Upload Release APK
-        # Upgraded to v6 for Node 24 support
-        uses: actions/upload-artifact@v6
+      - name: Extract Version
+        run: |
+          VERSION=$(grep "def appVersionName =" app/build.gradle | awk -F'"' '{print $2}')
+          echo "APP_VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: Z-Watchdog-v1.4-Release
-          path: app/build/outputs/apk/release/*.apk
+          tag_name: v${{ env.APP_VERSION }}
+          name: Release v${{ env.APP_VERSION }}
+          files: app/build/outputs/apk/release/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
