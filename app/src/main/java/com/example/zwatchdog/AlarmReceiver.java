@@ -55,7 +55,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     private void startMaintenanceJob(Context context) {
         if (Build.VERSION.SDK_INT >= 21) {
-            JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHERULER_SERVICE);
+            JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
             JobInfo.Builder builder = new JobInfo.Builder(1, new ComponentName(context, WatchdogJobService.class));
             builder.setPeriodic(300000).setPersisted(true);
             js.schedule(builder.build());

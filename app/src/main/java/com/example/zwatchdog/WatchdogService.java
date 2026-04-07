@@ -26,7 +26,7 @@ public class WatchdogService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        return START_STICKY; // Restarts if killed
+        return START_STICKY;
     }
 
     @Override
