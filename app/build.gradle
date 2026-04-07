@@ -16,6 +16,11 @@ android {
         versionName appVersionName
     }
 
+    // Required to generate the BuildConfig class used in Java
+    buildFeatures {
+        buildConfig = true
+    }
+
     lint {
         checkReleaseBuilds false
         abortOnError false
