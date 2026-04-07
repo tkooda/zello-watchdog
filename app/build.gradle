@@ -1,0 +1,20 @@
+apply plugin: 'com.android.application'
+
+android {
+    namespace 'com.example.zwatchdog'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.zwatchdog"
+        minSdk 22
+        targetSdk 22
+        versionCode 4
+        versionName "1.4"
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "z-watchdog.apk"
+        }
+    }
+}
