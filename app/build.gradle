@@ -14,7 +14,7 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "z-watchdog.apk"
+			outputFileName = "z-watchdog_${variant.versionName.replace(".", "_")}.apk"
         }
     }
 }
